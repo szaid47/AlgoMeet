@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import ConvexClerkPovider from "@/components/ui/providers/ConvexClerkProvider";
-import { ThemeProvider } from "@/components/ui/providers/ThemeProvider";
+import ConvexClerkProvider from "@/components/providers/ConvexClerkProvider";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import Navbar from "@/components/Navbar";
 import { RedirectToSignIn, SignedIn, SignedOut } from "@clerk/nextjs";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ConvexClerkPovider>
+    <ConvexClerkProvider>
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -53,9 +54,11 @@ export default function RootLayout({
       <SignedOut>
         <RedirectToSignIn/>
       </SignedOut>
+      <Toaster/>
       </ThemeProvider>
+      
       </body>
     </html>
-    </ConvexClerkPovider>
+    </ConvexClerkProvider>
   );
 }
