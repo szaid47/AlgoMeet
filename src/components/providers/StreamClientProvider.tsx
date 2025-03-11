@@ -20,7 +20,7 @@ const StreamVideoProvider = ({ children }: { children: ReactNode }) => {
         name: user?.firstName || "" + " " + user?.lastName || "" || user?.id,
         image: user?.imageUrl,
       },
-      tokenProvider: streamTokenProvider, 
+      tokenProvider: streamTokenProvider,
     });
 
     setStreamVideoClient(client);

@@ -7,6 +7,10 @@ const useMeetingActions = () => {
   const client = useStreamVideoClient();
 
   const createInstantMeeting = async () => {
+    if (!client) {
+    toast.error("Stream Video Client not initialized!");
+    return;
+}
     if (!client) return;
 
     try {
