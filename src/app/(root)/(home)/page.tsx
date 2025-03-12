@@ -8,6 +8,7 @@ import { useState } from "react";
 import { api } from "../../../../convex/_generated/api";
 import { useRouter } from "next/navigation";
 import MeetingModal from "@/components/MeetingModal";
+import LoaderUI from "@/components/LoaderUI";
 export default function Home() {
   
   const router = useRouter();
@@ -32,7 +33,7 @@ export default function Home() {
   };
 
   if (isLoading){
-    return <p>Loading</p>
+    return <LoaderUI/>
   }
 
   return (
