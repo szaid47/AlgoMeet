@@ -11,22 +11,28 @@ function MeetingSetup({ onSetupComplete }: { onSetupComplete: () => void }) {
 
   const call = useCall();
 
-  if (!call) return null;
+  useEffect(() => {
+    if (call) {
+      if (isCameraDisabled) call.camera.disable();
+      else call.camera.enable();
+    }
+  }, [isCameraDisabled, call]);
 
   useEffect(() => {
-    if (isCameraDisabled) call.camera.disable();
-    else call.camera.enable();
-  }, [isCameraDisabled, call.camera]);
+    if (call) {
+      if (isMicDisabled) call.microphone.disable();
+      else call.microphone.enable();
+    }
+  }, [isMicDisabled, call]);
 
-  useEffect(() => {
-    if (isMicDisabled) call.microphone.disable();
-    else call.microphone.enable();
-  }, [isMicDisabled, call.microphone]);
+  if (!call) return null; // ✅ Now, hooks are always called before returning
 
   const handleJoin = async () => {
     await call.join();
     onSetupComplete();
   };
+
+
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6 bg-background/95">

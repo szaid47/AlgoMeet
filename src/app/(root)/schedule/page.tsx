@@ -4,10 +4,9 @@
 import React from 'react'
 import { useUserRole } from '@/hooks/useUserRole'
 import { useRouter } from 'next/navigation'
-import { useUser } from '@clerk/nextjs';
 import LoaderUI from '@/components/LoaderUI';
 import InterviewScheduleUI from './InterviewScheduleUI';
-function schedulePage() {   
+function SchedulePage() {   
   const router = useRouter();
 
   const {isInterviewer ,isLoading} = useUserRole();
@@ -20,4 +19,4 @@ function schedulePage() {
   )
 }
 
-export default schedulePage
+export default SchedulePage

@@ -7,7 +7,7 @@ import { useUserRole } from "@/hooks/useUserRole";
 
 function DashboardBtn() {
   
-  const {isCandidate ,isInterviewer,isLoading}= useUserRole();
+  const {isCandidate ,isLoading}= useUserRole();
 
   if (isCandidate|| isLoading){
     return null;

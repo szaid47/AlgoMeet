@@ -9,7 +9,7 @@ import React, { useState } from 'react'
 import useGetCallById from '@/hooks/useGetCallById';
 
 
-function meetingPage() {
+function MeetingPage() {
   const {id} = useParams();
   const {isLoaded} = useUser();
   const {call,isCallLoading}=useGetCallById(id);
@@ -37,4 +37,4 @@ function meetingPage() {
   )
 }
 
-export default meetingPage
+export default MeetingPage
