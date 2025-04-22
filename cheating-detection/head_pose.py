@@ -43,6 +43,8 @@ roll_history = deque(maxlen=ANGLE_HISTORY_SIZE)
 previous_state = "Looking at Screen"
 calibrated_angles = None
 
+
+
 def get_head_pose_angles(image_points):
     success, rotation_vector, translation_vector = cv2.solvePnP(
         model_points, image_points, camera_matrix, dist_coeffs, flags=cv2.SOLVEPNP_ITERATIVE
@@ -69,12 +71,18 @@ def smooth_angle(angle_history, new_angle):
     angle_history.append(new_angle)
     return np.mean(angle_history)
 
+
+
 def process_head_pose(frame, calibrated_angles=None):
     global previous_state
 
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     faces = detector(gray)
-    head_direction = "Looking at Screen"
+    head_direction = "Looking at Screen"  # default
+
+    if len(faces) == 0:
+        # No face detected: return frame and default head direction
+        return frame, "Looking at Screen"
 
     for face in faces:
         landmarks = predictor(gray, face)
@@ -89,23 +97,20 @@ def process_head_pose(frame, calibrated_angles=None):
 
         angles = get_head_pose_angles(image_points)
         if angles is None:
-            continue
+            return frame, "Looking at Screen"
 
         pitch = smooth_angle(pitch_history, angles[0])
         yaw = smooth_angle(yaw_history, angles[1])
         roll = smooth_angle(roll_history, angles[2])
 
-        # If calibrating, return the current angles as calibrated_angles
         if calibrated_angles is None:
-            return frame, (0, 0, 0)
+            calibrated_angles = (0, 0, 0)
 
-        # Use calibrated angles for head pose detection
         pitch_offset, yaw_offset, roll_offset = calibrated_angles
-        PITCH_THRESHOLD = 8  # Reduced sensitivity
+        PITCH_THRESHOLD = 8
         YAW_THRESHOLD = 12
         ROLL_THRESHOLD = 5
 
-        # Determine head direction
         if abs(yaw - yaw_offset) <= YAW_THRESHOLD and abs(pitch - pitch_offset) <= PITCH_THRESHOLD and abs(roll - roll_offset) <= ROLL_THRESHOLD:
             current_state = "Looking at Screen"
         elif yaw < yaw_offset - 15:
@@ -124,4 +129,7 @@ def process_head_pose(frame, calibrated_angles=None):
         previous_state = current_state
         head_direction = current_state
 
-    return frame, head_direction
+        return frame, head_direction  # Return once face processed
+
+    # Fallback (just in case loop doesn't return)
+    return frame, "Looking at Screen"

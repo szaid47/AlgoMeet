@@ -34,6 +34,12 @@ function RecordingsPage() {
   return (
     <div className="container max-w-7xl mx-auto p-6">
       {/* HEADER SECTION */}
+      <button
+        onClick={() => window.location.href = "http://localhost:5173"}
+        className="mb-4 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition duration-200"
+        >
+        Procture
+        </button>
       <h1 className="text-3xl font-bold">Recordings</h1>
       <p className="text-muted-foreground my-1">
         {recordings.length} {recordings.length === 1 ? "recording" : "recordings"} available
