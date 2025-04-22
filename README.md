@@ -76,9 +76,9 @@ Here’s the enhanced version of your `README.md` with **image placeholders** (y
 
 | Layer        | Tech Used                    |
 |--------------|------------------------------|
-| Frontend     | React.js, Tailwind CSS       |
-| Backend      | Node.js, Express.js          |
-| Surveillance | Python, OpenCV, MediaPipe    |
+| Frontend     | Next.js, ShadcnUI      |
+| Backend      | Node.js          |
+| Surveillance | Python, OpenCV, YOLOv8
 | App Platform | Streamlit (for video analysis)|
 | Real-time    | WebRTC                       |
 | Database     | Convex                     |
