@@ -1,5 +1,3 @@
-Here’s the enhanced version of your `README.md` with **image placeholders** (you can replace them with actual image links later) and some layout improvements for clarity and polish:
-
 ---
 
 ## 📌 AlgoMeet
