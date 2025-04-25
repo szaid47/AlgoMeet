@@ -1,5 +1,3 @@
----
-
 ## 📌 AlgoMeet
 
 **AlgoMeet** is a surveillance-integrated platform to conduct real-time or scheduled coding interviews with cheating detection features using head and gaze alignment monitoring.
